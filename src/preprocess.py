@@ -4,6 +4,13 @@ import re
 from html.parser import HTMLParser
 import emoji
 
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+
+# Run once to download required NLTK data
+nltk.download("stopwords")
+nltk.download("wordnet")
 
 class TextPreprocessor:
     def __init__(self, text=""):
@@ -14,8 +21,8 @@ class TextPreprocessor:
         return self
 
     def replace_phone_numbers(self):
-        phone_re = r"\+?\d{1,3}[-.\s]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        self.text = re.sub(phone_re, " [Phone Number] ", self.text)
+        phone_re = r"\+?[\d]{1,3}[-.\s]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+        self.text = re.sub(phone_re, " [PhoneNumber] ", self.text)
         return self
 
     def replace_urls(self):
@@ -53,6 +60,19 @@ class TextPreprocessor:
 
     def replace_numbers(self):
         self.text = re.sub(r"\b\d+\b", " [NUMBER] ", self.text)
+        return self
+
+    def remove_stopwords(self):
+        stop_words = set(stopwords.words("english"))
+        # Preserve custom tokens like [URL], [EMAIL], etc.
+        tokens = self.text.split()
+        self.text = " ".join(w for w in tokens if w.lower() not in stop_words or w.startswith("["))
+        return self
+
+    def lemmatize(self):
+        lemmatizer = WordNetLemmatizer()
+        tokens = self.text.split()
+        self.text = " ".join(lemmatizer.lemmatize(w) for w in tokens)
         return self
 
     def get_text(self):
