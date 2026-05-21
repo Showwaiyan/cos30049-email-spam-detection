@@ -145,3 +145,30 @@ def prepare_email_text(subject, body):
     eml_text = (str(subject) + " " + str(body)).lower()
     eml_text = re.sub(r"\s+", " ", eml_text).strip()
     return eml_text
+
+
+def clean_text(text):
+    """Full preprocessing pipeline for a single text string.
+
+    Args:
+        text: The raw text string.
+
+    Returns:
+        The cleaned text string.
+    """
+    if not isinstance(text, str):
+        text = str(text)
+    tp = TextPreprocessor(text)
+    return (
+        tp.strip_html_tags()
+        .replace_urls()
+        .replace_emails()
+        .replace_phone_numbers()
+        .replace_numbers()
+        .replace_percentages()
+        .replace_emojis()
+        .remove_special_characters()
+        .normalize_whitespace()
+        .to_lowercase()
+        .get_text()
+    )
