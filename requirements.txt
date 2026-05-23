@@ -10,3 +10,4 @@ joblib         # Model serialization (saving/loading trained models)
 pytest         # Testing framework
 emoji          # Emoji detection and demojize support
 nltk           # Lemmatization
+scipy          # Sparse matrix handling (if needed for TF-IDF)
