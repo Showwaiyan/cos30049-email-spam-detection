@@ -141,12 +141,14 @@ def parse_eml(filepath):
         if payload:
             plain_body = payload.decode("utf-8", errors="ignore")
 
-    if plain_body.strip():
-        body = plain_body
-    else:
+    if html_body.strip():
         extractor = HTMLTextExtractor()
         extractor.feed(html_body)
         body = extractor.get_text()
+    elif plain_body.strip():
+        body = plain_body
+    else:
+        body = ""
 
     body = re.sub(r"\s+", " ", body).strip()
     return subject, body
