@@ -194,3 +194,37 @@ def clean_text(text):
         .to_lowercase()
         .get_text()
     )
+
+
+def clean_db_text(text):
+    """Clean email text with bracket removal and additional URL normalization."""
+    tp = TextPreprocessor(text)
+    tp.strip_html_tags()
+    tp.text = re.sub(r'[\[\]]', ' ', tp.text)
+    tp.text = re.sub(r'http\S+|www\.\S+', ' [URL] ', tp.text)
+    tp.replace_emails()
+    tp.replace_phone_numbers()
+    tp.replace_numbers()
+    tp.replace_percentages()
+    tp.replace_emojis()
+    tp.remove_special_characters()
+    tp.normalize_whitespace()
+    tp.to_lowercase()
+    return tp.get_text()
+
+
+def process_text_advanced(text):
+    """Apply stemming, stopword removal, punctuation filtering, and whitespace normalization."""
+    import string
+    from nltk.stem import PorterStemmer
+    ps = PorterStemmer()
+    stop_words = set(stopwords.words("english"))
+    tokens = text.split()
+    tokens = [
+        ps.stem(t) for t in tokens
+        if t.lower() not in stop_words and t not in string.punctuation
+    ]
+    result = " ".join(tokens)
+    result = re.sub(r'[(),;]', ' ', result)
+    result = re.sub(r'\s+', ' ', result).strip()
+    return result
