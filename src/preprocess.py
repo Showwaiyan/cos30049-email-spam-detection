@@ -1,5 +1,6 @@
 """Text preprocessing utilities for email spam detection."""
 
+from html import unescape
 import re
 from html.parser import HTMLParser
 import emoji
@@ -210,6 +211,10 @@ def clean_db_text(text):
     tp.remove_special_characters()
     tp.normalize_whitespace()
     tp.to_lowercase()
+    tp.text = unescape(tp.text)
+    tp.text = re.sub(r'=[0-9a-fA-F]{2,}', ' ', tp.text)  # hex only
+    tp.text = re.sub(r'\b[a-z0-9]{15,}\b', ' ', tp.text)  # only very long random strings
+    tp.normalize_whitespace()
     return tp.get_text()
 
 
