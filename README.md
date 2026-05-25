@@ -280,11 +280,3 @@ Trained on 118,988 samples (50.7% spam) from cleaned_combined.csv. Test set: 23,
 
 ---
 
-## References
-
-- Enron Email Dataset — https://www.cs.cmu.edu/~./enron/
-- TREC Spam Corpus — https://plg.uwaterloo.ca/~gvcormac/treccorpus/
-- SpamAssassin Corpus — https://spamassassin.apache.org/old/publiccorpus/
-- CEAS 2008 Corpus — https://www.ceas.cc/
-- Nazario Phishing Corpus — https://monkey.org/~jose/phishing/
-- LingSpam Dataset — https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html
