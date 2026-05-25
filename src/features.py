@@ -32,3 +32,4 @@ def extract_features(email):
     db["text"] = email.apply(clean_db_text)
     db["text"] = db["text"].apply(process_text_advanced)
     return db
+
