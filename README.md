@@ -34,8 +34,6 @@ A machine learning project for binary email spam classification, comparing super
 │   └── processed/             # Cleaned/combined datasets (gitignored)
 ├── tests/
 │   └── test_preprocess.py     # Pytest unit tests for TextPreprocessor
-├── scripts/
-│   └── add_notebook_comments.py  # Utility to insert markdown cells
 ├── results/                   # Output directory (empty)
 ├── requirements.txt           # Python dependencies
 └── README.md                  # This file
@@ -279,4 +277,3 @@ Trained on 118,988 samples (50.7% spam) from cleaned_combined.csv. Test set: 23,
 - The real challenge is generalising beyond 2000-era Enron/TREC data to modern email patterns
 
 ---
-
